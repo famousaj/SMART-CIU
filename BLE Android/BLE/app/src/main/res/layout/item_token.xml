@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="#E2E8F0">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp">
+
+        <!-- Top Status String Label -->
+        <TextView
+            android:id="@+id/txt_item_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="METER_NUMBER"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="#1E293B"
+            android:letterSpacing="0.05"/>
+
+        <!-- The Token Number TextView -->
+        <TextView
+            android:id="@+id/txt_item_token"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_item_status"
+            android:layout_marginTop="4dp"
+            android:text="4829 - 1092 - 8834 - 7162"
+            android:fontFamily="monospace"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#1E293B"/>
+
+        <!-- The Generation Date TextView -->
+        <TextView
+            android:id="@+id/txt_item_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_item_token"
+            android:layout_marginTop="6dp"
+            android:text="Generated: 2026-07-20 03:44"
+            android:textSize="12sp"
+            android:textColor="#64748B"/>
+
+        <!-- The Transmission Action Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_item_send"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/txt_item_token"
+            android:layout_marginTop="2dp"
+            android:text="SEND"
+            android:textStyle="bold"
+            app:cornerRadius="4dp"
+            android:textSize="12sp"
+            android:textColor="#0EA5E9"
+            app:strokeColor="#0EA5E9"
+            />
+
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

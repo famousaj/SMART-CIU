@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://tools.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#282727"
+    tools:context=".ui.MainActivity">
+
+    <!-- HEADER BLOCK: Signal Strength & Notification / Connection Controls -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="#141010"
+        app:strokeWidth="1dp"
+        app:strokeColor="#E2E8F0"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp">
+
+            <!-- Signal Bars Group Container -->
+            <LinearLayout
+                android:id="@+id/LyBars"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:orientation="horizontal"
+                android:rotation="180"
+                app:layout_constraintBottom_toTopOf="@id/switchConnection"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/bar1"
+                    android:layout_width="8dp"
+                    android:layout_height="14dp"
+                    android:layout_marginEnd="3dp"
+                    android:background="@drawable/rectangle" />
+
+                <TextView
+                    android:id="@+id/bar2"
+                    android:layout_width="8dp"
+                    android:layout_height="22dp"
+                    android:layout_marginEnd="3dp"
+                    android:background="@drawable/rectangle" />
+
+                <TextView
+                    android:id="@+id/bar3"
+                    android:layout_width="8dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="3dp"
+                    android:background="@drawable/rectangle" />
+
+                <TextView
+                    android:id="@+id/bar4"
+                    android:layout_width="8dp"
+                    android:layout_height="38dp"
+                    android:background="@drawable/rectangle" />
+            </LinearLayout>
+
+            <!-- Unified BLE Link Controller Switch -->
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchConnection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="BLE Device Link"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#334155"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/LyBars"
+                app:layout_constraintBottom_toTopOf="@id/llInput"/>
+
+            <!-- Snooze Control Setup placed perfectly to the Right side of Signal Group -->
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switch_snooze_low_token"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mute 24hr Alerts"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#334155"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/llInput"/>
+
+            <!-- Manual Processing Console Input Line -->
+            <LinearLayout
+                android:id="@+id/llInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/switchConnection">
+
+                <EditText
+                    android:id="@+id/txtMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:hint="Type payload manually..."
+                    android:background="@drawable/rectangle"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/btnWriteData"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="46dp"
+                    android:layout_weight="1"
+                    android:text="Send"
+                    android:textSize="12sp"
+                    android:textColor="#0EA5E9"
+                    app:strokeColor="#0EA5E9"/>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- SECTION 1: System Alerts Notification Display Log (Scrollable Board Layout) -->
+    <TextView
+        android:id="@+id/lblSystemLogs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="SYSTEM TRANSACTION LOGS"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:textColor="#64748B"
+        android:letterSpacing="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardHeader"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardLogs"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="4dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="1dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="#E2E8F0"
+        app:layout_constraintTop_toBottomOf="@id/lblSystemLogs">
+
+        <!-- A scrollable TextView to handle dynamic incoming lines -->
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#141010"
+            android:padding="8dp">
+            <LinearLayout
+                android:id="@+id/logContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+        </androidx.core.widget.NestedScrollView>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- SECTION 2: Available Simulated Tokens Stack -->
+    <TextView
+        android:id="@+id/lblActiveTokens"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:text="ACTIVE PAYMENTS STACK"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:textColor="#64748B"
+        android:letterSpacing="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardLogs"/>
+
+    <!-- Dynamic layout allocation to gracefully take remaining space up above controls -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/token_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
+        android:paddingBottom="4dp"
+        android:background="#141010"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/lblActiveTokens"
+        app:layout_constraintBottom_toTopOf="@id/lblShortcodes" />
+
+    <!-- SECTION 3: Meter Shortcodes & Utilities Panel Group -->
+    <TextView
+        android:id="@+id/lblShortcodes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="METER SHORTCODES &amp; ACTIONS"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:textColor="#64748B"
+        android:letterSpacing="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cardShortcodes"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardShortcodes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="3dp"
+        app:cardBackgroundColor="#141010"
+        app:strokeWidth="1dp"
+        app:strokeColor="#CBD5E1"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <!-- Row 1: Primary Purchases & Parameters Configuration -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <Button
+                    android:id="@+id/btnBuyTokens"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="46dp"
+                    android:layout_weight="1.2"
+                    android:layout_marginEnd="6dp"
+                    android:backgroundTint="#0EA5E9"
+                    android:text="Buy Tokens"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnSetThreshold"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="46dp"
+                    android:layout_weight="1"
+                    android:text="Set Limit"
+                    android:textSize="12sp"
+                    android:textColor="#0EA5E9"
+                    app:strokeColor="#0EA5E9"/>
+            </LinearLayout>
+
+            <!-- Row 2: Grid Container Layout managing the 5 Custom Simulation Shortcode Queries -->
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="3"
+                android:rowCount="2"
+                android:alignmentMode="alignBounds">
+
+                <Button
+                    android:id="@+id/btnShortcode1"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_columnWeight="1"
+                    android:text="Code 000"
+                    android:textSize="11sp"
+                    android:textColor="#475569"/>
+
+                <Button
+                    android:id="@+id/btnShortcode2"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_columnWeight="1"
+                    android:text="Code 001"
+                    android:textSize="11sp"
+                    android:textColor="#475569"/>
+
+                <Button
+                    android:id="@+id/btnShortcode3"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_columnWeight="1"
+                    android:text="Code 002"
+                    android:textSize="11sp"
+                    android:textColor="#475569"/>
+
+                <Button
+                    android:id="@+id/btnShortcode4"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_columnWeight="1"
+                    android:text="Code 004"
+                    android:textSize="11sp"
+                    android:textColor="#475569"/>
+
+                <Button
+                    android:id="@+id/btnShortcode5"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_columnWeight="1"
+                    android:text="Code 005"
+                    android:textSize="11sp"
+                    android:textColor="#475569"/>
+
+                <Button
+                    android:id="@+id/btnShortcode6"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_columnWeight="1"
+                    android:text="Code 049"
+                    android:textSize="11sp"
+                    android:textColor="#475569"/>
+            </GridLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
